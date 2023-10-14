@@ -29,9 +29,9 @@ steps:
 #     command: push
 #     publishVstsFeed: '<projectName>/<feed>'
 #     allowPackageConflicts: true
-# - task: NuGetCommand@2
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-#     nuGetFeedType: 'internal'
-#     publishVstsFeed: '11a02c0d-7073-4fa2-974d-696da7370194'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '11a02c0d-7073-4fa2-974d-696da7370194'
