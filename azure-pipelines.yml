@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NuGetAuthenticate@0
+  displayName: 'NuGet Authenticate'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+     
+# - task: NuGetCommand@2
+#   displayName: 'NuGet push'
+#   inputs:
+#     command: push
+#     publishVstsFeed: '<projectName>/<feed>'
+#     allowPackageConflicts: true
+# - task: NuGetCommand@2
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+#     nuGetFeedType: 'internal'
+#     publishVstsFeed: '11a02c0d-7073-4fa2-974d-696da7370194'
