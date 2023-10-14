@@ -22,7 +22,6 @@ steps:
     packagesToPack: '**/*.csproj'
     configuration: 'Release'
     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
-    nobuild: true
     versioningScheme: 'off'
 # - task: NuGetCommand@2
 #   displayName: 'NuGet push'
