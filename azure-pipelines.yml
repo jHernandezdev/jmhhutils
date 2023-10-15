@@ -6,10 +6,10 @@
 trigger: none
 
 variables:
-  nugetVersion: "1.1.1"  
-  ${{ if eq(variables['Build.SourceBranchName'], 'main') }}
+  nugetVersion: "1.1.2"  
+  ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
     finalVersion: $(nugetVersion)
-  ${{ else }}
+  ${{ else }}:
     finalVersion: "$(nugetVersion)-preview"
 pool:
   vmImage: ubuntu-latest
