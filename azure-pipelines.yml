@@ -5,6 +5,9 @@
 
 trigger: none
 
+variables:
+  nugetVersion: "1.1.$(Rev:r).preview"
+
 pool:
   vmImage: ubuntu-latest
 
@@ -23,9 +26,8 @@ steps:
     packagesToPack: '**/*.csproj'
     configuration: 'Release'
     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
-    majorVersion: "1"
-    minorVersion: "1"
-    patchVersion: "$(Rev:r).preview"    
+    versioningScheme: byEnvVar
+    versionEnvVar: nugetVersion
 - task: NuGetCommand@2
   displayName: 'Publish nuget'
   inputs:
