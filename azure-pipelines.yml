@@ -3,6 +3,8 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+trigger: none
+
 variables:
   nugetVersion: "1.1.2"  
   ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
@@ -13,6 +15,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- checkout: self
+  fetchDepth: 0
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
   inputs:
