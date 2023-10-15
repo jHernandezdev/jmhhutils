@@ -6,14 +6,15 @@
 trigger: none
 
 variables:
-  nugetVersion: "1.1.1-preview"
-
+  nugetVersion: "1.1.1"  
+  ${{ if eq(variables['Build.SourceBranchName'], 'main') }}
+    finalVersion: $(nugetVersion)
+  ${{ else }}
+    finalVersion: "$(nugetVersion)-preview"
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NuGetAuthenticate@0
-  displayName: 'NuGet Authenticate'
 - task: DotNetCoreCLI@2
   displayName: 'Build project'
   inputs:
@@ -27,7 +28,7 @@ steps:
     configuration: 'Release'
     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
     versioningScheme: byEnvVar
-    versionEnvVar: nugetVersion
+    versionEnvVar: finalVersion
 - task: NuGetCommand@2
   displayName: 'Publish nuget'
   inputs:
