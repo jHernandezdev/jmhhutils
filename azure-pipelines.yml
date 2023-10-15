@@ -29,6 +29,8 @@ stages:
       displayName: Install GitVersion
       inputs:
         versionSpec: '5.x'
+    - bash: |
+        echo $(NuGetVersion)
     - task: gitversion/execute@0
       inputs:
         useConfigFile: true
