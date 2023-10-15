@@ -6,7 +6,7 @@
 trigger: none
 
 variables:
-  nugetVersion: "1.1.$(Rev:r).preview"
+  nugetVersion: "1.1.1.preview"
 
 pool:
   vmImage: ubuntu-latest
