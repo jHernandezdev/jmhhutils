@@ -20,6 +20,11 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
+- task: gitversion/execute@0
+  inputs:
+    useConfigFile: true
+    configFilePath: 'GitVersion.yml'
+    
 - task: DotNetCoreCLI@2
   displayName: 'Pack project'
   inputs:
