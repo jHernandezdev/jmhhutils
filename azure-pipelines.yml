@@ -23,10 +23,9 @@ steps:
     packagesToPack: '**/*.csproj'
     configuration: 'Release'
     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
-    majorVersion: 1
-    minorVersion: 1
-    patchVersion: 0
-    versioningScheme: byPrereleaseNumber
+    majorVersion: "1"
+    minorVersion: "1"
+    patchVersion: "$(Rev:r).preview"    
 - task: NuGetCommand@2
   displayName: 'Publish nuget'
   inputs:
