@@ -13,10 +13,12 @@ steps:
 - task: NuGetAuthenticate@0
   displayName: 'NuGet Authenticate'
 - task: DotNetCoreCLI@2
+  displayName: 'Build project'
   inputs:
     command: 'build'
     projects: '**/*.csproj'
 - task: DotNetCoreCLI@2
+  displayName: 'Pack project'
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
@@ -30,8 +32,9 @@ steps:
 #     publishVstsFeed: '<projectName>/<feed>'
 #     allowPackageConflicts: true
 - task: NuGetCommand@2
+  displayName: 'Publish nuget'
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: '11a02c0d-7073-4fa2-974d-696da7370194'
+    publishVstsFeed: 'ClubNatacion/Default'
