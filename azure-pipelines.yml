@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- main
+trigger: none
 
 pool:
   vmImage: ubuntu-latest
@@ -25,16 +24,15 @@ steps:
     configuration: 'Release'
     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
     versioningScheme: 'off'
-# - task: NuGetCommand@2
-#   displayName: 'NuGet push'
-#   inputs:
-#     command: push
-#     publishVstsFeed: '<projectName>/<feed>'
-#     allowPackageConflicts: true
 - task: NuGetCommand@2
   displayName: 'Publish nuget'
   inputs:
     command: 'push'
+    allowPackageConflicts: true
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: 'ClubNatacion/Default/Prerelease'
+    majorVersion: 1
+    minorVersion: 1
+    patchVersion: 0
+    versioningScheme: byPrereleaseNumber
