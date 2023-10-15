@@ -34,4 +34,4 @@ steps:
     allowPackageConflicts: true
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'ClubNatacion/Default@Local'
+    publishVstsFeed: 'ClubNatacion/Default/@Local'
