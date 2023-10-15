@@ -52,5 +52,6 @@ stages:
         nuGetFeedType: 'internal'
         publishVstsFeed: 'ClubNatacion/Default/@Prerelease'
   - job: Job_B
+    dependsOn: Job_A
     steps:
-      - script: echo $(Minor)
+      - script: env | sort
