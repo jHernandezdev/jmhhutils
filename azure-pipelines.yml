@@ -3,8 +3,6 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger: none
-
 variables:
   nugetVersion: "1.1.2"  
   ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
