@@ -35,7 +35,7 @@ stages:
       inputs:
         useConfigFile: true
         configFilePath: 'GitVersion.yml'
-    - bash: echo "##vso[task.setvariable variable=nugetVersionFile;isoutput=true]$(NuGetVersion)"
+    - bash: echo "##vso[task.setvariable variable=nugetVersionFile;isOutput=true]$(NuGetVersion)"
       name: gitVersion
     - task: DotNetCoreCLI@2
       displayName: 'Pack project'
@@ -57,7 +57,7 @@ stages:
   - job: Job_B
     dependsOn: Job_A
     variables:
-      nugetVersion: $[ stageDependencies.Stage_A.Job_A.outputs['Job_A.gitVersion.nugetVersionFile'] ]
+      nugetVersion: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.nugetVersionFile']]
     steps:
     - bash: |
         echo $(nugetVersion)
