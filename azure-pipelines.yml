@@ -21,11 +21,11 @@ stages:
     steps:
     - checkout: self
       fetchDepth: 0
-    # - task: DotNetCoreCLI@2
-    #   displayName: 'Build project'
-    #   inputs:
-    #     command: 'build'
-    #     projects: '**/*.csproj'
+    - task: DotNetCoreCLI@2
+      displayName: 'Build project'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
     - task: gitversion/setup@0
       displayName: Install GitVersion
       inputs:
@@ -40,23 +40,23 @@ stages:
         echo "##vso[task.setvariable variable=EscapedBranchName;isOutput=true]$(EscapedBranchName)"
         echo "##vso[task.setvariable variable=MajorMinorPatch;isOutput=true]$(MajorMinorPatch)"
       name: gitVersion
-    # - task: DotNetCoreCLI@2
-    #   displayName: 'Pack project'
-    #   inputs:
-    #     command: 'pack'
-    #     packagesToPack: '**/*.csproj'
-    #     configuration: 'Release'
-    #     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
-    #     versioningScheme: byEnvVar
-    #     versionEnvVar: finalVersion
-    # - task: NuGetCommand@2
-    #   displayName: 'Publish nuget'
-    #   inputs:
-    #     command: 'push'
-    #     allowPackageConflicts: true
-    #     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    #     nuGetFeedType: 'internal'
-    #     publishVstsFeed: 'ClubNatacion/Default/@Prerelease'
+    - task: DotNetCoreCLI@2
+      displayName: 'Pack project'
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/*.csproj'
+        configuration: 'Release'
+        packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
+        versioningScheme: byEnvVar
+        versionEnvVar: finalVersion
+    - task: NuGetCommand@2
+      displayName: 'Publish nuget'
+      inputs:
+        command: 'push'
+        allowPackageConflicts: true
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: 'ClubNatacion/Default/@Prerelease'
 
 - stage: Stage_B
   dependsOn: Stage_A
