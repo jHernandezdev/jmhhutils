@@ -13,6 +13,7 @@ variables:
     finalVersion: "$(nugetVersion)-preview"
 pool:
   vmImage: ubuntu-latest
+
 stages:
 - stage: Stage_A
   jobs:
@@ -20,11 +21,11 @@ stages:
     steps:
     - checkout: self
       fetchDepth: 0
-    - task: DotNetCoreCLI@2
-      displayName: 'Build project'
-      inputs:
-        command: 'build'
-        projects: '**/*.csproj'
+    # - task: DotNetCoreCLI@2
+    #   displayName: 'Build project'
+    #   inputs:
+    #     command: 'build'
+    #     projects: '**/*.csproj'
     - task: gitversion/setup@0
       displayName: Install GitVersion
       inputs:
@@ -37,25 +38,28 @@ stages:
         configFilePath: 'GitVersion.yml'
     - bash: echo "##vso[task.setvariable variable=nugetVersionFile;isOutput=true]$(NuGetVersion)"
       name: gitVersion
-    - task: DotNetCoreCLI@2
-      displayName: 'Pack project'
-      inputs:
-        command: 'pack'
-        packagesToPack: '**/*.csproj'
-        configuration: 'Release'
-        packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
-        versioningScheme: byEnvVar
-        versionEnvVar: finalVersion
-    - task: NuGetCommand@2
-      displayName: 'Publish nuget'
-      inputs:
-        command: 'push'
-        allowPackageConflicts: true
-        packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-        nuGetFeedType: 'internal'
-        publishVstsFeed: 'ClubNatacion/Default/@Prerelease'
-  - job: Job_B
-    dependsOn: Job_A
+    # - task: DotNetCoreCLI@2
+    #   displayName: 'Pack project'
+    #   inputs:
+    #     command: 'pack'
+    #     packagesToPack: '**/*.csproj'
+    #     configuration: 'Release'
+    #     packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
+    #     versioningScheme: byEnvVar
+    #     versionEnvVar: finalVersion
+    # - task: NuGetCommand@2
+    #   displayName: 'Publish nuget'
+    #   inputs:
+    #     command: 'push'
+    #     allowPackageConflicts: true
+    #     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    #     nuGetFeedType: 'internal'
+    #     publishVstsFeed: 'ClubNatacion/Default/@Prerelease'
+
+- stage: Stage_B
+  dependsOn: Stage_A
+  jobs:  
+  - job: Job_B    
     variables:
       nugetVersion: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.nugetVersionFile']]
     steps:
