@@ -63,9 +63,9 @@ stages:
   jobs:  
   - job: Job_B    
     variables:
-      nugetVersion: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.nugetVersionFile']]
+      EscapedBranchName: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.EscapedBranchName']]
       MajorMinorPatch: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.MajorMinorPatch']]
     steps:
     - bash: |
-        echo $(nugetVersion)
+        echo $(EscapedBranchName)
         echo $(MajorMinorPatch)
