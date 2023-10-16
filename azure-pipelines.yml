@@ -64,6 +64,7 @@ stages:
   - job: Job_B    
     variables:
       nugetVersion: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.nugetVersionFile']]
+      MajorMinorPatch: $[stageDependencies.Stage_A.Job_A.outputs['gitVersion.MajorMinorPatch']]
     steps:
     - bash: |
         echo $(nugetVersion)
